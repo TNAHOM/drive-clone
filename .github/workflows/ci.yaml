@@ -1,0 +1,29 @@
+name: CI
+
+# when push, their are jobs to do that runs in ubuntu-latest, and the steps are:
+# 1. Checkout the code
+# 2. Install dependencies
+# 3. Copy .env.example files
+# 4. Typecheck
+# 5. Lint
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install -g pnpm && pnpm install
+
+      - name: Copy .env.example files
+        shell: bash
+        run: find . -type f -name ".env.example" -exec sh -c 'cp "$1" "${1%.*}"' _ {} \;
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
