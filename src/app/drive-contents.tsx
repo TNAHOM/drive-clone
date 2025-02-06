@@ -13,9 +13,9 @@ export default function DriveContents(props: {
 }) {
 //   const breadcrumbs: unknown[] = [];
 
-  const handleUpload = () => {
-    alert("Upload functionality would be implemented here");
-  };
+//   const handleUpload = () => {
+//     alert("Upload functionality would be implemented here");
+//   };
 
   return (
     <div className="min-h-screen bg-gray-900 p-8 text-gray-100">
@@ -38,7 +38,7 @@ export default function DriveContents(props: {
             ))}
           </div>
           <Button
-            onClick={handleUpload}
+            // onClick={handleUpload}
             className="bg-blue-600 text-white hover:bg-blue-700"
           >
             <Upload className="mr-2" size={20} />
