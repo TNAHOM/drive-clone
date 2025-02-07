@@ -1,8 +1,8 @@
 import { Folder as FolderIcon, File as FileIcon } from "lucide-react";
 import Link from "next/link";
-import type { folders, files } from "~/server/db/schema";
+import type { folders_table, files_table } from "~/server/db/schema";
 
-export const FileRow = (props: { file: (typeof files.$inferSelect) }) => {
+export const FileRow = (props: { file: typeof files_table.$inferSelect }) => {
   const { file } = props;
   return (
     <div>
@@ -31,7 +31,7 @@ export const FileRow = (props: { file: (typeof files.$inferSelect) }) => {
 };
 
 export const FolderRow = (props: {
-  folder: (typeof folders.$inferSelect);
+  folder: typeof folders_table.$inferSelect;
 }) => {
   const { folder } = props;
   return (
