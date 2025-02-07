@@ -1,3 +1,5 @@
+import "server-only"
+
 import {
     files_table as fileschema,
     folders_table as folderschema,

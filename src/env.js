@@ -16,6 +16,9 @@ export const env = createEnv({
     SINGLESTORE_HOST: z.string(),
     SINGLESTORE_PORT: z.string(),
     SINGLESTORE_DB_NAME: z.string(),
+    // I dont have to do this becasue I will not use/import this env variables, clerk sdk will handle it
+    // NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    // CLERK_SECRET_KEY: z.string(),
   },
 
   /**
@@ -39,7 +42,7 @@ export const env = createEnv({
     SINGLESTORE_HOST: process.env.SINGLESTORE_HOST,
     SINGLESTORE_PORT: process.env.SINGLESTORE_PORT,
     SINGLESTORE_DB_NAME: process.env.SINGLESTORE_DB_NAME,
-    
+
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
