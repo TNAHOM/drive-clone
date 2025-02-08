@@ -19,7 +19,7 @@ export default async function GoogleDriveClone(props: {
   const filesPromise = getFiles(parsedFolderId);
   const foldersPromise = getFolders(parsedFolderId);
   const parentsPromise = getAllParentsForFolder(parsedFolderId);
-  
+
   // avoids using the await for each featching(files, foldersPromise), make it faster using this method because it makes it in parallel fetching
   const [files, folders, parents] = await Promise.all([
     filesPromise,
@@ -27,5 +27,12 @@ export default async function GoogleDriveClone(props: {
     parentsPromise,
   ]);
 
-  return <DriveContents files={files} folders={folders} parents={parents} />;
+  return (
+    <DriveContents
+      files={files}
+      folders={folders}
+      parents={parents}
+      currentFolderId={parsedFolderId}
+    />
+  );
 }

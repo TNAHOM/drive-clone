@@ -1,19 +1,23 @@
 "use client";
 
-import { Upload, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { FileRow, FolderRow } from "./FileRow";
 import type { files_table, folders_table } from "~/server/db/schema";
 import Link from "next/link";
 import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "../components/uploadthing";
 import { useRouter } from "next/navigation";
-// import { UploadButton } from "@uploadthing/react";
+
+// @02:23:00
 
 export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
   folders: (typeof folders_table.$inferSelect)[];
   parents: (typeof folders_table.$inferInsert)[];
+
+  currentFolderId: number;
 }) {
+  console.log("props", props.currentFolderId);
   const navigate = useRouter();
   return (
     <div className="min-h-screen bg-gray-900 p-8 text-gray-100">
@@ -65,8 +69,10 @@ export default function DriveContents(props: {
           onClientUploadComplete={() => {
             navigate.refresh();
           }}
+          input={{ folderId: props.currentFolderId }}
         />
       </div>
+      {/* </div> */}
     </div>
   );
 }

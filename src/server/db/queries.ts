@@ -7,7 +7,6 @@ import {
 } from "~/server/db/schema";
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
-import { auth } from "@clerk/nextjs/server";
 
 export async function getAllParentsForFolder(folderId: number) {
     const parents = [];
@@ -45,6 +44,15 @@ export function getFolders(folderId: number) {
 
 }
 
+export async function getFolderId(folderId: number) {
+    const folder = await db
+        .select()
+        .from(folderschema)
+        .where(eq(folderschema.id, folderId));
+
+    return folder[0]
+}
+
 export const MUTATIONS = {
     createFiles: async function (input: {
         file: {
@@ -58,7 +66,7 @@ export const MUTATIONS = {
 
         return await db.insert(fileschema).values({
             ...input.file,
-            parent: input.file.parent,
+            ownerId: input.userId,
         })
     }
 }
