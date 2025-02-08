@@ -1,11 +1,13 @@
 import "server-only"
 
 import {
+    type DB_FILETYPE,
     files_table as fileschema,
     folders_table as folderschema,
 } from "~/server/db/schema";
 import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
+import { auth } from "@clerk/nextjs/server";
 
 export async function getAllParentsForFolder(folderId: number) {
     const parents = [];
@@ -41,4 +43,22 @@ export function getFolders(folderId: number) {
         .from(folderschema)
         .where(eq(folderschema.parent, folderId));
 
+}
+
+export const MUTATIONS = {
+    createFiles: async function (input: {
+        file: {
+            name: string;
+            size: number;
+            url: string;
+            // parent: number;
+        };
+        userId: string;
+    }) {
+
+        return await db.insert(fileschema).values({
+            ...input.file,
+            parent: 1
+        })
+    }
 }

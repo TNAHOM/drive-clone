@@ -1,6 +1,6 @@
 import "server-only";
 
-import { bigint, text, index, singlestoreTableCreator } from
+import { bigint, int, text, index, singlestoreTableCreator } from
   "drizzle-orm/singlestore-core";
 
 
@@ -9,12 +9,14 @@ export const createTable = singlestoreTableCreator((name) => `drive-clone-v2_${n
 export const files_table = createTable("files_table", {
   id: bigint("id", { mode: "number", unsigned: true }).primaryKey().autoincrement(),
   name: text("name").notNull(),
-  size: text("size").notNull(),
+  size: int("size").notNull(),
   url: text("url").notNull(),
   parent: bigint("parent", { mode: "number", unsigned: true }).notNull(),
 }, (t) => {
   return [index("parent_index").on(t.parent)];
 })
+
+export type DB_FILETYPE = typeof files_table.$inferSelect;
 
 
 export const folders_table = createTable("folders_table", {
@@ -25,4 +27,4 @@ export const folders_table = createTable("folders_table", {
   return [index('parent_index').on(t.parent)];
 })
 
-// @1:12:34
+export type DB_FOLDER_TYPE = typeof folders_table.$inferSelect;
